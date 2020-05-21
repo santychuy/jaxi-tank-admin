@@ -1,15 +1,16 @@
+import './database';
 import next from 'next';
-import { serverExpress } from './app';
+import { serverGraphql } from './app';
 import { config } from './config';
 
 const {
-  APP_SETTINGS: { PORT, NODE_ENV },
+  APP_SETTINGS: { NODE_ENV },
 } = config;
 
-const port = parseInt(PORT, 10) || 4000;
 const dev = NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
 
 // Express App
-app.prepare().then(serverExpress(dev, handle, port));
+// app.prepare().then(serverExpress(dev, handle, port));
+app.prepare().then(serverGraphql(handle));
