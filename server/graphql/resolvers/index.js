@@ -1,4 +1,10 @@
-import { createUser, getUsers, getUser } from '../../controllers/user.controller';
+import {
+  createUser,
+  getUsers,
+  getUser,
+  deleteUser,
+  updateUser,
+} from '../../controllers/user.controller';
 
 export const resolvers = {
   Query: {
@@ -8,5 +14,7 @@ export const resolvers = {
 
   Mutation: {
     createUser,
+    deleteUser,
+    updateUser,
   },
 };
