@@ -13,7 +13,6 @@ const ListUser = () => {
 
   if (error) return <h1>Error</h1>;
   if (loading) return <h1>Loading...</h1>;
-  if (data.getUsers.length === 0) return <h1>Agrega usuarios</h1>;
 
   const handleModal = () => setOpen(!open);
 
@@ -25,6 +24,7 @@ const ListUser = () => {
         <Icon name="add circle" style={{ float: 'right' }} />
       </Header>
       <Segment.Group>
+        {data.getUsers.length === 0 && <h1>No hay usuarios</h1>}
         {data.getUsers.map(({ id, name }) => (
           <User key={id} name={name} idUser={id} />
         ))}
