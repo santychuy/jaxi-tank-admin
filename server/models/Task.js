@@ -17,7 +17,10 @@ const taskSchema = new Schema({
     type: Boolean,
     default: false,
   },
-  user: String,
+  user: {
+    type: String,
+    required: true,
+  },
 });
 
 export default model('Task', taskSchema, 'tasks');
