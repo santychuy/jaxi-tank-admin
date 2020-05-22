@@ -9,7 +9,7 @@ export const Navigation = () => (
         <Menu.Item as="a">Usuarios</Menu.Item>
       </Link>
       <Link href="/tasks">
-        <Menu.Item as="a">Tareas</Menu.Item>
+        <Menu.Item as="a">Asignar Tarea</Menu.Item>
       </Link>
     </Container>
   </Menu>
