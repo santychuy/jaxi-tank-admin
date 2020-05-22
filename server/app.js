@@ -1,20 +1,27 @@
-import express, { json, urlencoded } from 'express';
-import cors from 'cors';
-import morgan from 'morgan';
-import helmet from 'helmet';
+import { GraphQLServer } from 'graphql-yoga';
+// import { parse } from 'url';
 
-export const serverExpress = (dev, handle, port) => {
-  const server = express();
+import GraphQLConfig from './config/graphqlServer';
+import { typeDefs } from './graphql/typeDefs';
+import { resolvers } from './graphql/resolvers';
+import { initMiddlewares } from './middlewares';
 
-  server.use(helmet());
-  server.use(json());
-  server.use(urlencoded({ extended: true }));
-  server.use(cors());
-  if (dev) server.use(morgan('dev'));
+export const serverGraphql = handle => {
+  const server = new GraphQLServer({
+    typeDefs,
+    resolvers,
+  });
 
-  server.all('*', (req, res) => handle(req, res));
+  const { express } = server;
+  initMiddlewares(express);
 
-  server.listen(port, err => {
-    err ? console.log(err) : console.log(`>> Ready on http://localhost:${port}`);
+  /* server.express.get('/', (req, res) => {
+    const parsedUrl = parse(req.url, true);
+    handle(req, res, parsedUrl);
+  }); */
+  server.express.all('*', (req, res) => handle(req, res));
+
+  server.start(GraphQLConfig, ({ port }) => {
+    console.log(`Server on: http://localhost:${port}`);
   });
 };
