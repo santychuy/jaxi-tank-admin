@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Container, Segment, Header, Icon } from 'semantic-ui-react';
+import { Container, Segment } from 'semantic-ui-react';
 import { useQuery } from '@apollo/react-hooks';
 
 import { withApollo } from '../../utils/apollo';
 import { GET_USERS } from '../../graphql/queries/GET_USERS';
 import { User } from './User';
+import Header from './Header';
 import ModalUser from '../Modal';
 
 const ListUser = () => {
@@ -19,10 +20,7 @@ const ListUser = () => {
   return (
     <Container text style={{ marginTop: '5em' }}>
       <ModalUser open={open} handleModal={handleModal} />
-      <Header as="h3" block onClick={handleModal} style={{ cursor: 'pointer' }}>
-        Agregar Usuario
-        <Icon name="add circle" style={{ float: 'right' }} />
-      </Header>
+      <Header title="Agregar Usuario" change={handleModal} />
       <Segment.Group>
         {data.getUsers.length === 0 && <h1>No hay usuarios</h1>}
         {data.getUsers.map(({ id, name }) => (
