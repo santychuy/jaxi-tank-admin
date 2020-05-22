@@ -1,5 +1,5 @@
 {
-  "watch": ["server"],
+  "watch": ["src/src/pages/api"],
   "ext": "js",
   "ignore": [".git", "node_modules/**/node_modules", "src/**/*.spec.ts"],
   "exec": "babel-node",

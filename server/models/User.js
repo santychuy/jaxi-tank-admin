@@ -30,23 +30,20 @@ const userSchema = new Schema({
   tasks: [String],
 });
 
+// Encrypt Password
 userSchema.pre('save', async function (next) {
   const user = this;
-  if (user.isModified('password')) {
-    user.password = await bcrypt.hash(user.password, 8);
-  }
+  if (user.isModified('password')) user.password = await bcrypt.hash(user.password, 8);
   next();
 });
 
+// Validate Password
 userSchema.statics.findByCredentials = async (email, password) => {
   const user = await User.findOne({ email });
-  if (!user) {
-    throw Error(`No existe un usuario con esta dirección`);
-  }
+  if (!user) throw Error(`No existe un usuario con esta dirección`);
+
   const isPasswordMatch = await bcrypt.compare(password, user.password);
-  if (!isPasswordMatch) {
-    throw Error('Contraseña incorrecta');
-  }
+  if (!isPasswordMatch) throw Error('Contraseña incorrecta');
   return user;
 };
 
