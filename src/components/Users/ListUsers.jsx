@@ -26,7 +26,7 @@ const ListUser = () => {
       </Header>
       <Segment.Group>
         {data.getUsers.map(({ id, name }) => (
-          <User key={id} name={name} />
+          <User key={id} name={name} idUser={id} />
         ))}
       </Segment.Group>
     </Container>

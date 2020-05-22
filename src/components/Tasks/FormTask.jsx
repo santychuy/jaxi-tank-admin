@@ -36,6 +36,7 @@ const FormTask = () => {
       const { title, description, user } = taskData;
       await createTask({ variables: { user, title, description } });
       setTaskData({ title: '', user: '', description: '' });
+      alert('Tarea asignada correctamente');
     } catch (e) {
       throw Error(e.message);
     }
