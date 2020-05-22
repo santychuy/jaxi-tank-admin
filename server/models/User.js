@@ -1,5 +1,6 @@
 /* eslint-disable */
 import { Schema, model } from 'mongoose';
+import bcrypt from 'bcrypt';
 
 const userSchema = new Schema({
   name: {
@@ -28,5 +29,25 @@ const userSchema = new Schema({
   },
   tasks: [String],
 });
+
+userSchema.pre('save', async function (next) {
+  const user = this;
+  if (user.isModified('password')) {
+    user.password = await bcrypt.hash(user.password, 8);
+  }
+  next();
+});
+
+userSchema.statics.findByCredentials = async (email, password) => {
+  const user = await User.findOne({ email });
+  if (!user) {
+    throw Error(`No existe un usuario con esta dirección`);
+  }
+  const isPasswordMatch = await bcrypt.compare(password, user.password);
+  if (!isPasswordMatch) {
+    throw Error('Contraseña incorrecta');
+  }
+  return user;
+};
 
 export default model('User', userSchema, 'users');
