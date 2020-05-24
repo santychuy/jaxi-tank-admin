@@ -17,6 +17,10 @@ export const serverExpress = (dev, handle, port) => {
   app.all('*', (req, res) => handle(req, res));
 
   app.listen(port, err => {
-    err ? console.log(err) : console.log(`>> Ready on http://localhost:${port}`);
+    err
+      ? console.log(err)
+      : console.log(
+          `>> Ready on http://localhost:${port}\n>> Graphql on http://localhost:${port}/graphql`
+        );
   });
 };
