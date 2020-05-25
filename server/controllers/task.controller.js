@@ -43,8 +43,11 @@ export const updateTask = async (_, { id, title, description, level, done }) => 
   }
 };
 
-export const deleteTask = async (_, { id }) => {
+export const deleteTask = async (_, { id, idUser }) => {
   try {
+    const user = await User.findById({ _id: idUser });
+    user.tasks = user.tasks.filter(idTask => idTask !== id);
+    await user.save();
     return await Task.findByIdAndDelete(id);
   } catch (e) {
     return e;

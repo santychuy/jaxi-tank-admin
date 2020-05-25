@@ -1,5 +1,6 @@
 import User from '../models/User';
 import { cleanObject } from '../helper/cleanObject';
+import { NEW_USER } from '../graphql/subcriptions';
 
 export const getUsers = async () => {
   try {
@@ -17,9 +18,10 @@ export const getUser = async (_, { id }) => {
   }
 };
 
-export const createUser = async (_, { name, email, username, password }) => {
+export const createUser = async (_, { name, email, username, password }, { pubsub }) => {
   try {
     const user = new User({ name, email, password, username });
+    pubsub.publish(NEW_USER, { newUser: { name, email, username } });
     return await user.save();
   } catch (e) {
     return e;

@@ -16,6 +16,12 @@ export const serverExpress = (dev, handle, port) => {
 
   app.all('*', (req, res) => handle(req, res));
 
+  /* app.createServer((req, res) => {
+    if (req.url === '*') {
+      handle(req, res);
+    }
+  }); */
+
   app.listen(port, err => {
     err
       ? console.log(err)

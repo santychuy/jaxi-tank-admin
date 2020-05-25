@@ -14,7 +14,11 @@ export const typeDefs = `
 
         createTask(user: ID!, title: String!, description: String!): Task!
         updateTask(id: ID!, title: String, description: String, level: Int, done: Boolean): Task!
-        deleteTask(id: ID!): Task!
+        deleteTask(id: ID!, idUser: ID!): Task!
+    }
+
+    type Subscription {
+        newUser: User!
     }
 
     type User {

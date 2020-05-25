@@ -26,7 +26,7 @@ const DetailUser = () => {
     <Grid divided="vertically">
       <Row columns={2}>
         <FormUser id={id} data={data} />
-        <Tasks id={id} data={data} />
+        <Tasks idUser={id} data={data} />
       </Row>
     </Grid>
   );

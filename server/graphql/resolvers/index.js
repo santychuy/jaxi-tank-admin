@@ -14,6 +14,8 @@ import {
   updateTask,
 } from '../../controllers/task.controller';
 
+import { NEW_USER } from '../subcriptions';
+
 export const resolvers = {
   Query: {
     getUsers,
@@ -29,5 +31,11 @@ export const resolvers = {
     createTask,
     updateTask,
     deleteTask,
+  },
+
+  Subscription: {
+    newUser: {
+      subscribe: (_, __, { pubsub }) => pubsub.asyncIterator([NEW_USER]),
+    },
   },
 };

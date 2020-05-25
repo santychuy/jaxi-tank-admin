@@ -21,12 +21,15 @@ const ListUser = () => {
     <Container text style={{ marginTop: '5em' }}>
       <ModalUser open={open} handleModal={handleModal} />
       <Header title="Agregar Usuario" change={handleModal} />
-      <Segment.Group>
-        {data.getUsers.length === 0 && <h1>No hay usuarios</h1>}
-        {data.getUsers.map(({ id, name }) => (
-          <User key={id} name={name} idUser={id} />
-        ))}
-      </Segment.Group>
+      {data.getUsers.length === 0 ? (
+        <h1>No hay usuarios</h1>
+      ) : (
+        <Segment.Group>
+          {data.getUsers.map(({ id, name }) => (
+            <User key={id} name={name} idUser={id} />
+          ))}
+        </Segment.Group>
+      )}
     </Container>
   );
 };

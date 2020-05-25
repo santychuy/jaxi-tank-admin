@@ -9,6 +9,7 @@ import { withApollo } from '../../utils/apollo';
 const { Column } = Grid;
 
 const Tasks = ({
+  idUser,
   data: {
     getUser: { tasks },
   },
@@ -20,6 +21,7 @@ const Tasks = ({
       await deleteTask({
         variables: {
           id: idTask,
+          idUser,
         },
       });
       alert('Tarea terminada');
