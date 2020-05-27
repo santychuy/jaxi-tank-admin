@@ -1,6 +1,7 @@
 import express, { json, urlencoded } from 'express';
 import helmet from 'helmet';
 import morgan from 'morgan';
+import cors from 'cors';
 
 import { initGraphql } from './graphql';
 
@@ -8,6 +9,7 @@ export const serverExpress = (dev, handle, port) => {
   const server = express();
 
   server.use(helmet());
+  server.use(cors());
   server.use(json());
   server.use(urlencoded({ extended: true }));
   if (dev) server.use(morgan('dev'));
