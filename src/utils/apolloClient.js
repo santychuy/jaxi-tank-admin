@@ -11,6 +11,7 @@ export default function createApolloClient(initialState, ctx) {
     link: new HttpLink({
       uri: `http://localhost:${process.env.PORT}/graphql`, // Server URL (must be absolute)
       fetch,
+      credentials: 'same-origin',
     }),
     cache: new InMemoryCache().restore(initialState),
   });
